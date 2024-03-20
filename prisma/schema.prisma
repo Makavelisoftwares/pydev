@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  clerkId String @id
+
+  name  String?
+  email String?
+  image String?
+
+  forums forum[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reply     reply[]
+  Like      Like[]
+}
+
+model forum {
+  id String @id @default(cuid())
+
+  name        String  @db.Text
+  description String  @db.Text
+  image_url   String?
+
+  author   User   @relation(fields: [authorId], references: [clerkId], onDelete: Cascade, onUpdate: Cascade)
+  authorId String
+
+  reply reply[]
+  Like  Like[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model reply {
+  id      String @id @default(cuid())
+  message String @db.Text
+
+  replier   User   @relation(fields: [replierId], references: [clerkId], onDelete: Cascade, onUpdate: Cascade)
+  replierId String
+
+  forum   forum  @relation(fields: [forumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  forumId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id String @id @default(cuid())
+
+  forum   forum  @relation(fields: [forumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  forumId String
+
+  liker   User   @relation(fields: [likerId], references: [clerkId], onDelete: Cascade, onUpdate: Cascade)
+  likerId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
