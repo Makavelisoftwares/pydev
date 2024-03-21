@@ -80,7 +80,7 @@ export default function EditorPage() {
           <Editor
             height="80vh"
             defaultLanguage="python"
-            defaultValue="// happy coding"
+            defaultValue="#happy coding"
             theme="vs-dark"
             onChange={handleEditorPageChange}
             className="text-blue-600"
