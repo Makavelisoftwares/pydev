@@ -25,6 +25,9 @@ export const Header = () => {
             <Button asChild variant="link" size="sm">
               <Link href="/forums">forums</Link>
             </Button>
+            <Button asChild variant="link" size="sm">
+              <Link href="/recent">Recents</Link>
+            </Button>
             <UserBtn />
           </div>
         ) : (

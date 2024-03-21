@@ -23,6 +23,7 @@ model User {
   updatedAt DateTime @updatedAt
   reply     reply[]
   Like      Like[]
+  code      code[]
 }
 
 model forum {
@@ -64,6 +65,19 @@ model Like {
 
   liker   User   @relation(fields: [likerId], references: [clerkId], onDelete: Cascade, onUpdate: Cascade)
   likerId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model code {
+  id    String  @id @default(cuid())
+  title String?
+
+  code String @db.Text
+
+  programmer   User   @relation(fields: [programmerId], references: [clerkId], onDelete: Cascade, onUpdate: Cascade)
+  programmerId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

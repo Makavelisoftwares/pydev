@@ -1,11 +1,5 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-
-import axios from "axios";
-import Editor, { Monaco } from "@monaco-editor/react";
-import { useState } from "react";
-import { Loader, Play, Save } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -14,37 +8,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Editor from "@monaco-editor/react";
+import axios from "axios";
+import { Loader, Play } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
-import Link from "next/link";
-import { SaveCode } from "./_components/save-code";
 
-export default function EditorPage() {
-  const [code, setcode] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+export const ViewCode = ({ code }) => {
   const [output, setoutput] = useState("");
-
-  const links = [
-    {
-      id: 1,
-      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
-    },
-    {
-      id: 2,
-      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
-    },
-    {
-      id: 3,
-      link: "https://www.youtube.com/watch?v=rfscVS0vtbw",
-    },
-    {
-      id: 4,
-      link: "https://www.youtube.com/watch?v=b093aqAZiPU",
-    },
-  ];
-
-  function handleEditorPageChange(value, event) {
-    setcode(value);
-  }
+  const [isLoading, setisLoading] = useState(false);
 
   const handleRun = async () => {
     try {
@@ -75,22 +47,6 @@ export default function EditorPage() {
 
   return (
     <div>
-      <div>
-        <div className="font-bold text-lg">Links to python tutorials</div>
-        <div className="flex flex-col space-y-2">
-          {links.map((item, i) => (
-            <Link
-              target="_blank"
-              className="text-xs hover:text-sky-400 hover:underline"
-              key={i}
-              href={item?.link}
-            >
-              {item?.link}
-            </Link>
-          ))}
-        </div>
-      </div>
-
       <div className="my-3 flex justify-end">
         <div className="flex items-center space-x-3">
           <Button
@@ -101,8 +57,6 @@ export default function EditorPage() {
             <Play />
             <div>Run</div>
           </Button>
-
-          <SaveCode code={code}/>
         </div>
       </div>
 
@@ -111,9 +65,9 @@ export default function EditorPage() {
           <Editor
             height="80vh"
             defaultLanguage="python"
-            defaultValue="// happy coding"
+            defaultValue="//happy coding"
             theme="vs-dark"
-            onChange={handleEditorPageChange}
+            value={code}
             className="text-blue-600"
           />
         </div>
@@ -151,4 +105,4 @@ export default function EditorPage() {
       </div>
     </div>
   );
-}
+};
