@@ -23,24 +23,7 @@ export default function EditorPage() {
   const [isLoading, setisLoading] = useState(false);
   const [output, setoutput] = useState("");
 
-  const links = [
-    {
-      id: 1,
-      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
-    },
-    {
-      id: 2,
-      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
-    },
-    {
-      id: 3,
-      link: "https://www.youtube.com/watch?v=rfscVS0vtbw",
-    },
-    {
-      id: 4,
-      link: "https://www.youtube.com/watch?v=b093aqAZiPU",
-    },
-  ];
+  
 
   function handleEditorPageChange(value, event) {
     setcode(value);
@@ -75,21 +58,7 @@ export default function EditorPage() {
 
   return (
     <div>
-      <div>
-        <div className="font-bold text-lg">Links to python tutorials</div>
-        <div className="flex flex-col space-y-2">
-          {links.map((item, i) => (
-            <Link
-              target="_blank"
-              className="text-xs hover:text-sky-400 hover:underline"
-              key={i}
-              href={item?.link}
-            >
-              {item?.link}
-            </Link>
-          ))}
-        </div>
-      </div>
+      
 
       <div className="my-3 flex justify-end">
         <div className="flex items-center space-x-3">
