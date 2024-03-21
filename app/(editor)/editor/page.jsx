@@ -15,13 +15,33 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import Link from "next/link";
 
-export default function Editor() {
+export default function EditorPage() {
   const [code, setcode] = useState("");
   const [isLoading, setisLoading] = useState(false);
   const [output, setoutput] = useState("");
 
-  function handleEditorChange(value, event) {
+  const links = [
+    {
+      id: 1,
+      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
+    },
+    {
+      id: 2,
+      link: "https://www.youtube.com/watch?v=kqtD5dpn9C8",
+    },
+    {
+      id: 3,
+      link: "https://www.youtube.com/watch?v=rfscVS0vtbw",
+    },
+    {
+      id: 4,
+      link: "https://www.youtube.com/watch?v=b093aqAZiPU",
+    },
+  ];
+
+  function handleEditorPageChange(value, event) {
     setcode(value);
   }
 
@@ -32,9 +52,8 @@ export default function Editor() {
         script: code,
         language: "python3",
         versionIndex: "0",
-        clientId: "4a76a71b0b16b60c38118711d669f8b7",
-        clientSecret:
-          "50a405bac73a6cad4533b88435daabf357c11ea7b5833ef63896ec202e58f710",
+        clientId: process.env.NEXT_PUBLIC_JDOODLE_CLIENT_ID,
+        clientSecret: process.env.NEXT_PUBLIC_JDOODLE_CLIENT_SECRET,
       };
 
       if (!code) {
@@ -55,6 +74,22 @@ export default function Editor() {
 
   return (
     <div>
+      <div>
+        <div className="font-bold text-lg">Links to python tutorials</div>
+        <div className="flex flex-col space-y-2">
+          {links.map((item, i) => (
+            <Link
+              target="_blank"
+              className="text-xs hover:text-sky-400 hover:underline"
+              key={i}
+              href={item?.link}
+            >
+              {item?.link}
+            </Link>
+          ))}
+        </div>
+      </div>
+
       <div className="my-3 flex justify-end">
         <Button
           className="bg-emerald-500 flex items-center space-x-2 hover:bg-emerald-500"
@@ -73,7 +108,7 @@ export default function Editor() {
             defaultLanguage="python"
             defaultValue="// some comment"
             theme="vs-dark"
-            onChange={handleEditorChange}
+            onChange={handleEditorPageChange}
             className="text-blue-600"
           />
         </div>
